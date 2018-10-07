@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+      svg { 
+        margin: 0 auto;
+      }
+
+      #chart-1 svg {
+        display: block;
+      }
+
+      h1 { margin-bottom: 2rem; }
+
+      body {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      h3 { 
+        margin-top: 3rem; 
+        margin-bottom: 1rem;
+      }
+
+      .container {
+/*        max-width: 56rem;
+*/      }
+
+      img.block {
+        display: block;
+        border: solid #333 1p;
+        margin: 0 auto;
+      }
+
+      .axis line, .axis path {
+        stroke-width: 0.5;
+        stroke: #999;
+      }
+
+      #chart-2 svg, #chart-3 svg, #chart-4 svg, #chart-6 svg {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Radials and small multiples</h1>
+
+      <div class="alert alert-warning">
+        Completed version should look like <a href="homework-completed.pdf">this one</a>. Hints are in <code>hints/</code> (next to <code>src</code> this time)
+      </div>
+
+      <p>In this homework we start simple, s-l-o-w-l-ying build more interesting, more complicated graphics. <strong>Eventually we absolutely lose our mind.</strong></p>
+
+      <p>Don't move the data out of <code>/data/</code>, it's happy living there.</p>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+    <h2>Chart 1: A simple, centered pie chart</h2>
+    <p>Except it's kind of sneaky because I teach you something else while we're doing it.</p>
+    <p>Dataset is <code>data/time-breakdown.csv</code></p>
+    <div id="chart-1"></div>
+
+    <h3>Chart 2: Pie chart, small multiples</h3>
+    <p>Same as above, but small multiples'd. You don't need to label the wedges.</p>
+    <p><strong>Do not use multiple SVGs!</strong> I want this all in one SVG.</p>
+    <p>Dataset is <code>data/time-breakdown-all.csv</code></p>
+    <div id="chart-2"></div>
+
+    <h3>Chart 3: Fixed-wedge size pie, or radial bar graph</h3>
+    <p>You can actually the pie generator for this! You don't have to, though.</p>
+    <p>Dataset is <code>data/ny-temps.csv</code></p>
+    <div id="chart-3"></div>
+
+    <h3>Chart 3b: Small multiples of Chart 3</h3>
+    <p>Now you'll just have to re-use your code to distribute it across the x axis. Dataset is <code>data/all-temps.csv</code></p>
+    <div id="chart-3b"></div>
+
+    <h3>Chart 3c: Chart 3, also showing the minimum temperature for each month</h3>
+    <p>Isn't this getting fun? Dataset is <code>data/all-temps.csv</code></p>
+    <div id="chart-3c"></div>
+
+    <h3>Chart 4: Radial area charts</h3>
+    <p>Dataset is <code>data/ny-temps.csv</code></p>
+    <div id="chart-4"></div>
+
+    <h3>Chart 5: Radial area charts, small multiples </h3>
+    <p>More small multiples! Dataset is <code>data/all-temps.csv</code></p>
+
+    <div id="chart-5"></div>
+
+    <h3>Chart 6: A radar chart</h3>
+    <div id="chart-6"></div>
+
+    <h3>Chart 7: A weird, fun radial graph </h3>
+    <p>We're copying <a href="https://blogs.scientificamerican.com/sa-visual/why-are-so-many-babies-born-around-8-00-a-m/">this one</a>! It is <em>completely</em> unreasonable to expect you to do it, which is why it's going to be extra fun. You also learn some weird stuff.</p>
+    <p>Dataset is <code>data/time-binned.csv</code></p>
+
+    <div id="chart-7"></div>
+    
+    <h3>Chart 8: NBA radar chart</h3>
+    <p>This is a lesson in how to deal with data that isn't exactly what you're looking for. Also uses weird stuff. Data in <code>data/nba.csv</code></p>
+    <div id="chart-8">
+    </div>
+
+    <h3>Chart 9: NBA radar chart small multiples</h3>
+    <p>If you've made one, you've made them all! Kind of.</p>
+    <p>Data in <code>data/nba.csv</code></p>
+    <div id="chart-9">
+    </div>
+
+    <style>
+      #chart-7 svg {
+        display: block;
+        margin: 0 auto;
+      }
+      #chart-9 {
+        text-align: center;
+      }
+
+      #chart-8 svg {
+        display: block;
+        margin: 0 auto;
+      }
+      #chart-8 .band-numbers text {
+        font-size: 10px;
+        alignment-baseline: middle;
+        text-anchor: middle;
+      }
+
+      #chart-9 .band-numbers text {
+        font-size: 6px;
+        alignment-baseline: middle;
+        text-anchor: middle;
+      }
+
+    </style>
+
+    </div>
+  </div>
+
+  <!-- Now we include our actual visualization -->
+  <script src="chart-1.js"></script>
+  <script src="chart-2.js"></script>
+  <script src="chart-3.js"></script>
+  <script src="chart-3b.js"></script>
+  <script src="chart-3c.js"></script>
+  <script src="chart-4.js"></script>
+  <script src="chart-5.js"></script>
+  <script src="chart-6.js"></script>
+  <script src="chart-7.js"></script>
+  <script src="chart-8.js"></script>
+  <script src="chart-9.js"></script>
+</div>
+</body>
+</html>
+
