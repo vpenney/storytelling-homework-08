@@ -22,46 +22,61 @@ var pie = d3.pie().value(function(d) {
 var arc = d3
   .arc()
   .innerRadius(0)
-  .outerRadius(100)
+  .outerRadius(70)
 
 // Position scales
-var xPositionScale = d3
-  .scaleLinear()
-  .range([0, width])
+var xPositionScale = d3.scaleBand().range([0, width])
 
 // Color scale
-var colorScale = d3.scaleOrdinal().range(['#b2df8a', '#1f78b4', '#a6cee3'])
+var colorScale = d3.scaleOrdinal().range(['#fc8d59', '#ffffbf', '#91bfdb'])
 
 d3.csv(require('./data/time-breakdown-all.csv'))
   .then(ready)
   .catch(err => console.log('Failed with', err))
 
 function ready(datapoints) {
-  // Get a list of projects
-  let projects = datapoints.map(d => +d.project)
-
-  // Define domain for xPositionScale
-  xPositionScale.domain(d3.extent(projects))
-
   var nested = d3
     .nest()
     .key(d => d.project)
     .entries(datapoints)
+
+  // Get a list of projects
+  let projects = nested.map(d => d.key)
+
+  // Define domain for xPositionScale
+  xPositionScale.domain(projects)
 
   container
     .selectAll('.mini-pies')
     .data(nested)
     .enter()
     .append('g')
-    .attr('transform', 'translate(' + (d => xPositionScale(projects)) + ',' + '30)')
+    .attr('transform', function(d) {
+      return `translate(${xPositionScale(d.key) + 45}, ${height / 2})`
+    })
     .each(function(d) {
       var container = d3.select(this)
-      console.log(d.values)
 
       container
+        .selectAll('path')
+        .data(pie(d.values))
+        .enter()
         .append('path')
-        .data(pie(nested))
-        .attr('d', d => arc(d.values.minutes))
-        .attr('fill', d => colorScale(d.values.task))
+        .attr('d', d => arc(d))
+        .attr('fill', function(d) {
+          return colorScale(d.data.task)
+        })
+
+      // This needs to be centered properly
+      container
+        .selectAll('label-text')
+        .data(nested)
+        .enter()
+        .append('text')
+        .attr('d', d => d.key)
+        .text(d.key)
+        .attr('dy', 95)
+        .attr('dx', -30)
+        .attr('text-anchor', 'center')
     })
 }

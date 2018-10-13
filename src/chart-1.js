@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 
-var margin = { top: 30, left: 30, right: 30, bottom: 30 }
+var margin = { top: 30, left: 65, right: 20, bottom: 30 }
 var height = 400 - margin.top - margin.bottom
 var width = 780 - margin.left - margin.right
 
@@ -35,7 +35,7 @@ var labelArc = d3
   .outerRadius(160)
 
 // Color scale
-var colorScale = d3.scaleOrdinal().range(['#f5f5f5', '#5ab4ac', '#d8b365'])
+var colorScale = d3.scaleOrdinal().range(['#fc8d59', '#ffffbf', '#91bfdb'])
 
 // Angle scale
 var angleScale = d3
@@ -64,16 +64,16 @@ function ready(datapoints) {
     .attr('d', d => arc(d))
     .attr('fill', d => colorScale(d.data.task))
 
+  // Add some label text
   holder
-    .selectAll('.label-text')
-    .data(datapoints)
+    .selectAll('label-text')
+    .data(pie(datapoints))
     .enter()
     .append('text')
-    .text(d => d.task)
-    .attr('d', d => labelArc(pie))
-    .attr('text-anchor', 'middle')
+    .attr('d', d => arc(d))
+    .text(d => d.data.task)
     .attr('transform', function(d) {
-      return 'translate(' + labelArc.centroid(d) + ',' + 0 + ')'
+      return 'translate(' + labelArc.centroid(d) + ')'
     })
     .attr('text-anchor', function(d) {
       if (d.startAngle > Math.PI) {
